@@ -28,6 +28,9 @@ const FilterItem = styled.li<FilterItemProps>`
 
   border-bottom: ${(props) =>
     props.selected ? "4px solid var(--orange-low)" : ""};
+
+  color: ${(props) => 
+    props.selected ? "var(--text-dark-2)" : ""};
 `;
 
 export function FilterByType() {
