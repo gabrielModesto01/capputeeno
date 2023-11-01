@@ -5,6 +5,7 @@ import { useFilter } from "./useFilter";
 import { FilterType } from "@/types/filter-types";
 import { getCategoryByType, getFildByPriority } from "@/utils/graphql-filters";
 import { PriorityType } from "@/types/priority-types";
+import { useDeferredValue } from "react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
@@ -13,7 +14,7 @@ const fetcher = (query: string): AxiosPromise<ProductsFetchResponse> => {
 }
 
 const mountQuery = (type: FilterType, priority: PriorityType) =>  {
-  if (type ===  FilterType.ALL && priority === PriorityType.POPULARUTY) 
+  if (type ===  FilterType.ALL && priority === PriorityType.POPULARITY) 
   return `
   query {
       allProducts(sortField: "sales", sortOrder: "DSC") {
@@ -40,14 +41,18 @@ const mountQuery = (type: FilterType, priority: PriorityType) =>  {
 }
 
 export function useProducts(){
-  const { type, priority } = useFilter()
+  const { type, priority, search } = useFilter()
+  const searchDeferred = useDeferredValue(search)
   const query = mountQuery(type, priority)
   const { data } = useQuery({
     queryFn: () =>  fetcher(query),
     queryKey: [ 'products', type, priority], 
   })
 
+  const products = data?.data?.data?.allProducts
+  const filteredProducts = products?.filter(product => product.name.toLowerCase().includes(searchDeferred.toLowerCase()))
+
   return {
-    data: data?.data?.data?.allProducts
+    data: filteredProducts
   }
 }
