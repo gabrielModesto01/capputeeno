@@ -55,17 +55,17 @@ const Card = styled.div`
     padding: 0px;
   }
   }
+  `
 
   
-`
 
 export function ProductCard(props : ProductCardProps){
-  function formatValue(valueInCents: number) {
-    const valueInReais = valueInCents / 100;
-    return valueInReais.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'});
+  function formatPrice(valueInCents: number) {
+    const formattedValue = valueInCents / 100;
+    return formattedValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
-
-  const price = formatValue(props.price);
+  
+  const price = formatPrice(props.price);
 
     return(
         <Card>
