@@ -51,6 +51,8 @@ const Container = styled.div`
                 align-items: center;
                 justify-content: center;
                 gap: 8px;
+
+                margin-top: 30%
             }
         }
 
@@ -70,7 +72,7 @@ const Container = styled.div`
 const ProductInfo = styled.div`
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: column;
 
     span {
@@ -105,8 +107,7 @@ const ProductInfo = styled.div`
     }
 
     div {
-
-        margin-top: 58px;
+                
 
         h3 {
             text-transform: uppercase;
