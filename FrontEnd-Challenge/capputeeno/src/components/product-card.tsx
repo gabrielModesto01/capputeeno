@@ -1,9 +1,11 @@
+import { useRouter } from "next/navigation";
 import styled from "styled-components"
 
 interface ProductCardProps {
   image: string,
   title: string,
   price: number,
+  id: string
 }
 
 const Card = styled.div`
@@ -11,6 +13,7 @@ const Card = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  cursor: pointer;
 
   border-radius: 0px 0px 4px 4px;
 
@@ -65,10 +68,15 @@ export function ProductCard(props : ProductCardProps){
     return formattedValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
   
+  const router = useRouter();
   const price = formatPrice(props.price);
 
+  const handleNavigate = () => {
+    router.push("/product?id=" + props.id);
+  }
+
     return(
-        <Card>
+        <Card onClick={handleNavigate}>
           <img src={props.image}/>
           <div>
             <h3>{props.title}</h3>
