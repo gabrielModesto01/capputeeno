@@ -140,6 +140,26 @@ const ProductInfo = styled.div`
 export default function Product({ searchParams }: { searchParams: {id: string}}){
     const { data } = useProduct(searchParams.id);
 
+    const handleAddToCart = () => {
+        let cartItems = localStorage.getItem("cart-items")
+        if (cartItems) {
+            let cartItemsArray = JSON.parse(cartItems);
+
+            let existingProductIndex = cartItemsArray.findIndex((item: { id: string }) => item.id === searchParams.id)
+
+            if(existingProductIndex != -1) {
+                cartItemsArray[existingProductIndex].quantity += 1;
+            } else {
+                cartItemsArray.push({ ...data, quantity: 1, id : searchParams.id })
+            }
+
+            localStorage.setItem("cart-items", JSON.stringify(cartItemsArray))
+        } else {
+            const newCart = [{...data, quantity: 1, id: searchParams.id }]
+            localStorage.setItem("cart-items", JSON.stringify(newCart));
+        }
+    }
+
     function formatPrice(valueInCents: number) {
         const formattedValue = valueInCents / 100;
         return formattedValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -162,7 +182,7 @@ export default function Product({ searchParams }: { searchParams: {id: string}})
                                 <p>{data?.description}</p>
                             </div>
                         </ProductInfo>
-                        <button>
+                        <button onClick={handleAddToCart}>
                             <ShopBagIcon/>
                             ADICIONAR AO CARRINHO
                         </button>
