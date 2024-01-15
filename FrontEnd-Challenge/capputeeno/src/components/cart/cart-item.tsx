@@ -82,6 +82,7 @@ const SelecQuantity = styled.select`
   color: var(--text-dark);
   font-size: 16px;
   font-weight: 400;
+  
 `
 
 export default function CartItem({ product, handleUpdateQuantity, handleDelete } : CartItemProps){

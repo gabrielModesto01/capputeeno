@@ -39,6 +39,7 @@ const CartListContainer = styled.div`
     span {
     font-weight: bold;
   }
+  
 }
 `
 
