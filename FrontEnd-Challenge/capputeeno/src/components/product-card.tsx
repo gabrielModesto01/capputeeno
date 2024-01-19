@@ -57,8 +57,8 @@ const Card = styled.div`
     margin: 8px 0px;
     padding: 0px;
   }
-  }
-  `
+}
+`
 
   
 

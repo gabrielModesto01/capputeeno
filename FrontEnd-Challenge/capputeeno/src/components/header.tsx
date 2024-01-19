@@ -4,7 +4,6 @@ import styled from "styled-components"
 import { Saira_Stencil_One } from "next/font/google"
 import { PrimaryInputWSearchIcon } from "./primary-input"
 import { CartControl } from "./cart-control"
-import { useContext } from "react"
 import { useFilter } from "@/hooks/useFilter"
 
 const sairaStencil = Saira_Stencil_One({
